@@ -1,8 +1,13 @@
 let firebaseConfig = { //objeto de configuración de Firebase
-
+    apiKey: "AIzaSyAvVFDaAQHh9lFBOwh_f6_aV4QNtWuKO_U",
+    authDomain: "fir-web-20224.firebaseapp.com",
+    projectId: "fir-web-20224",
+    storageBucket: "fir-web-20224.firebasestorage.app",
+    messagingSenderId: "13011313356",
+    appId: "1:13011313356:web:4c122260c6702a07d65869"
 };
 
-firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase
+firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase | abre conexión con la nube
 
 const db = firebase.firestore();// db representa mi BBDD //inicia Firestore
 
@@ -194,7 +199,7 @@ const addToFavorites = (photoId, photoData) => {
     .catch((error) => {
       console.error('Error añadiendo a favoritos: ', error);
     });
-    alert('Foto añadida a favoritos.');
+  alert('Foto añadida a favoritos.');
 };
 
 // Delete favorite
@@ -207,14 +212,14 @@ const removeFromFavorites = (photoId) => {
   }
 
   const userRef = db.collection('users').doc(user.uid);
-  
+
   userRef.get()
     .then((doc) => {
       if (doc.exists) {
         const favorites = doc.data().favorites;
         const updatedFavorites = favorites.filter(fav => fav.id !== photoId); // Remove the photo by ID
 
-        userRef.update({ favorites: updatedFavorites }) 
+        userRef.update({ favorites: updatedFavorites })
           .then(() => {
             alert('Foto eliminada de favoritos.');
             showFavorites(); // Update the favorites view
